@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import mate.academy.rickandmorty.client.ApiClient;
 import mate.academy.rickandmorty.dto.page.PageResponseDto;
 import mate.academy.rickandmorty.mapper.CharacterMapper;
 import mate.academy.rickandmorty.model.Character;
 import mate.academy.rickandmorty.repository.CharacterRepository;
-import mate.academy.rickandmorty.client.ApiClient;
 import org.springframework.stereotype.Component;
 
 @Component
