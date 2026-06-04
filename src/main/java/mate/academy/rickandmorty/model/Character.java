@@ -1,5 +1,6 @@
 package mate.academy.rickandmorty.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -22,14 +23,15 @@ public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String externalId;
+    @Column(unique = true, nullable = false)
+    private Long externalId;
     private String name;
     @Enumerated(EnumType.STRING)
     private StatusType status;
     @Enumerated(EnumType.STRING)
     private GenderType gender;
 
-    public Character(String externalId, String name, StatusType status, GenderType gender) {
+    public Character(Long externalId, String name, StatusType status, GenderType gender) {
         this.externalId = externalId;
         this.name = name;
         this.status = status;

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class RickAndMortyApiClientImpl implements ApiClient {
     private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
 
+    @Override
     public String getPage(String url) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()
@@ -24,7 +25,8 @@ public class RickAndMortyApiClientImpl implements ApiClient {
 
             return response.body();
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Request interrupted", e);
         }
 
     }

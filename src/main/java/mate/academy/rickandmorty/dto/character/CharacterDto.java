@@ -7,7 +7,7 @@ import mate.academy.rickandmorty.model.type.StatusType;
 @Data
 public class CharacterDto {
     private Long id;
-    private String externalId;
+    private Long externalId;
     private String name;
     private StatusType status;
     private GenderType gender;

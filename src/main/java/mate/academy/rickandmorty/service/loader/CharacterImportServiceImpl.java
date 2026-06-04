@@ -22,6 +22,7 @@ public class CharacterImportServiceImpl implements ImportService {
     private final CharacterMapper characterMapper;
     private final CharacterRepository characterRepository;
 
+    @Override
     public void importCharacters() {
         String nextUrl = CHARACTERS_URL;
 
@@ -30,6 +31,7 @@ public class CharacterImportServiceImpl implements ImportService {
                 String pageJson = apiClient.getPage(nextUrl);
 
                 if (!isValidJson(pageJson)) {
+                    nextUrl = null;
                     break;
                 }
 
@@ -40,7 +42,11 @@ public class CharacterImportServiceImpl implements ImportService {
                         .map(characterMapper::toModel)
                         .toList();
 
-                characterRepository.saveAll(characters);
+                List<Character> toSave = characters.stream()
+                        .filter(c -> !characterRepository.existsByExternalId(c.getExternalId()))
+                        .toList();
+
+                characterRepository.saveAll(toSave);
 
                 nextUrl = pageResponseDto.info().next();
             }
